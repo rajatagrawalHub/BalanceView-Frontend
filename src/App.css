@@ -1,38 +1,285 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.flex {
+  display: flex;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.padding-24 {
+  padding: 24px;
+}
+
+/* Custom Styling */
+
+body {
+  background-color: whitesmoke;
+  color: #222222;
+}
+
+#container {
+  max-height: 100vh;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+#topBar {
+  border-bottom: 2px solid #22222228;
+  align-items: center;
+}
+
+.lockBtn {
+  cursor: pointer;
+} 
+
+#balanceBar {
+  border-bottom: 2px solid #22222228;
+  padding: 24px;
+}
+
+#balanceBox {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 8px;
+}
+
+#balanceBox i{
+  padding-right: 12px;
+}
+
+#transactiontable {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  flex: 1;
+  border-bottom: 1px solid #22222228;
+  overflow-y: scroll;
+}
+
+h2 {
+  color: #222222;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table,
+th,
+td {
+  border: 1px solid #22222228;
+}
+
+thead tr {
+  background-color: rgb(57, 57, 171);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+thead tr th {
+  padding: 8px 0;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+tbody tr td,
+tbody tr th {
+  padding: 12px 0;
+  text-align: center;
+}
+
+tbody tr td:nth-child(1),
+tbody tr td:nth-child(4),
+tbody tr td:nth-child(5) {
+  text-wrap: nowrap;
+}
+.inputBox {
+  gap: 12px;
+  justify-content: space-between;
+  width: 60vw;
+  align-items: center;
+}
+
+.inputBox p {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 40vw;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+button{
+  background-color: rgb(57, 57, 171);
+  color: white;
+  padding: 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.flex-end{
+  align-items: flex-end;
+}
+
+.fa-trash{
+  color: rgb(253, 67, 67);
+  cursor: pointer;
+}
+
+#navBox{
+  gap: 12px;
+}
+
+#pageNo{
+  font-size: 18px;
+}
+
+#navBox i{
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#add-form{
+  background-color: white;
+  width: fit-content;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.356);
+  gap: 12px;
+}
+
+#add-form h2{
+  text-align: center;
+}
+
+#modalContainer{
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidden{
+  display: none;
+}
+
+.dispaly{
+  display: flex ;
+}
+
+#pin-form{
+  background-color: white;
+  width: fit-content;
+  padding: 36px;
+  gap: 24px;
+  text-align: center;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px #22222228;
+}
+
+#keypad{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-template-rows: repeat(3,1fr);
+  gap: 6px;
+  width: fit-content;
+}
+
+#keypad p:nth-child(10){
+  grid-column: 2; 
+}
+
+.cell{
+  background-color: rgb(41, 41, 41);
+  box-shadow: 0px 2px 2px #22222228;
+  color: white;
+  padding: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  width: fit-content;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.alert{
+  color: red;
+}
+
+@media screen and (max-width: 720px) {
+  table {
+    font-size: 8px;
   }
-  to {
-    transform: rotate(360deg);
+
+  body {
+    overflow-x: hidden;
   }
+  .inputBox {
+    gap: 12px;
+    justify-content: space-between;
+    width: 80vw;
+    align-items: center;
+  }
+
+  .flex-end{
+  align-items: flex-end;
+}
 }
