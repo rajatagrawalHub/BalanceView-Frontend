@@ -107,7 +107,8 @@ export default function Home() {
               <tr key={i}>
                 <td>{t.date}</td>
                 <td>{t.description}</td>
-                <td>
+                {(t.type==="CR")}
+                <td style= {(t.type === "CR" ) ? "color: green" : "color: red"} >
                   {t.amount} {t.type}
                 </td>
                 <td>{t.closingBalance}</td>
