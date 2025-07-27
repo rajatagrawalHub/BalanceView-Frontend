@@ -148,9 +148,9 @@ export default function Admin() {
               <tr key={i}>
                 <td>{t.date}</td>
                 <td>{t.description}</td>
-                <td style= {(t.type === "CR" ) ? {color: "green"} : {color: "red"}} >
+                <th style= {(t.type === "CR" ) ? {color: "green"} : {color: "red"}} >
                   {t.amount} {t.type}
-                </td>
+                </th>
                 <td>{t.closingBalance.toFixed(2)}</td>
                 <td>
                   <i
