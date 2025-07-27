@@ -36,7 +36,7 @@ export default function Home() {
       return;
     }
     fetchTransactions();
-  }, [nav, token]);
+  }, [nav, token,fetchTransactions]);
 
   const fetchTransactions = () => {
     API.get("/transactions", { headers: { Authorization: token } })

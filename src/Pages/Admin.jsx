@@ -21,7 +21,7 @@ export default function Admin() {
       return;
     }
     fetchTransactions();
-  }, [nav, token]);
+  }, [nav, token,fetchTransactions]);
 
   const fetchTransactions = () => {
     API.get("/transactions", { headers: { Authorization: token } })
