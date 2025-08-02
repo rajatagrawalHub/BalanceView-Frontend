@@ -5,6 +5,7 @@ import API from "../api";
 export default function PIN() {
   const [incorrect, setIncorrect] = useState(0);
   const [pin, setPin] = useState("");
+  const [isConnecting,setIsConnecting] = useState(false);
   const nav = useNavigate();
 
   const handleDigitPress = (digit) => {
@@ -15,6 +16,7 @@ export default function PIN() {
 
   useEffect(() => {
     if (pin.length === 4) {
+      setIsConnecting(true);
       // Call backend API for login
       API.post("/login", { pin })
         .then((res) => {
@@ -22,13 +24,23 @@ export default function PIN() {
           localStorage.setItem("role", res.data.role);
           if (res.data.role === "Home") nav("/");
           else if (res.data.role === "Admin") nav("/admin");
+          setIsConnecting(false);
         })
         .catch(() => {
           setIncorrect(1);
           setPin("");
+          setIsConnecting(false);
         });
     }
   }, [pin, nav]);
+
+    if (isConnecting) {
+    return (
+      <div id="connecting-container">
+        <div id="connecting-screen"><i className="fa-solid fa-spinner fa-spin"></i>Loading</div>
+      </div>
+    );
+  }
 
   return (
     <div

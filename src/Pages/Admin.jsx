@@ -12,6 +12,7 @@ export default function Admin() {
     amount: "",
     type: "CR",
   });
+  const [isConnecting, setIsConnecting] = useState(true);
 
   const token = localStorage.getItem("sessionToken");
 
@@ -39,6 +40,7 @@ export default function Admin() {
 
         const withBalances = calculateClosingBalances(sortedData);
         setTransactions(withBalances.reverse()); // Reverse for latest first
+        setIsConnecting(false);
       })
       .catch(() => nav("/login"));
   };
@@ -64,8 +66,9 @@ export default function Admin() {
   };
 
   const handleAddTransaction = () => {
-    API.post("/transactions", form, { headers: { Authorization: token } }).then(
-      () => {
+    setIsConnecting(true);
+    API.post("/transactions", form, { headers: { Authorization: token } })
+      .then(() => {
         setAdd(0);
         setForm({
           date: new Date().toISOString().split("T")[0],
@@ -74,8 +77,10 @@ export default function Admin() {
           type: "CR",
         });
         fetchTransactions();
-      }
-    );
+      })
+      .finally(() => {
+        setIsConnecting(false);
+      });
   };
 
   const handleDeleteTransaction = (id) => {
@@ -94,6 +99,16 @@ export default function Admin() {
           diffHours > 1 ? "s" : ""
         } ago`;
   };
+
+  if (isConnecting) {
+    return (
+      <div id="connecting-container">
+        <div id="connecting-screen">
+          <i className="fa-solid fa-spinner fa-spin"></i>Loading
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="container" className="flex column">
@@ -148,7 +163,11 @@ export default function Admin() {
               <tr key={i}>
                 <td>{t.date}</td>
                 <td>{t.description}</td>
-                <th style= {(t.type === "CR" ) ? {color: "green"} : {color: "red"}} >
+                <th
+                  style={
+                    t.type === "CR" ? { color: "green" } : { color: "red" }
+                  }
+                >
                   {t.amount} {t.type}
                 </th>
                 <td>{t.closingBalance.toFixed(2)}</td>

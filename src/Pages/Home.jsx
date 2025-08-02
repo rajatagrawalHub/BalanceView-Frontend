@@ -6,6 +6,7 @@ export default function Home() {
   const nav = useNavigate();
   const token = localStorage.getItem("sessionToken");
   const [transactions, setTransactions] = useState([]);
+  const [isConnecting, setIsConnecting] = useState(true);
 
   const calculateClosingBalances = (transactions) => {
     let balance = 0;
@@ -54,6 +55,7 @@ export default function Home() {
 
         const withBalances = calculateClosingBalances(sortedData);
         setTransactions(withBalances.reverse()); // Reverse for latest first
+        setIsConnecting(false);
       })
       .catch(() => nav("/login"));
   };
@@ -65,6 +67,14 @@ export default function Home() {
       nav("/login");
     });
   };
+
+  if (isConnecting) {
+    return (
+      <div id="connecting-container">
+        <div id="connecting-screen"><i className="fa-solid fa-spinner fa-spin"></i>Loading</div>
+      </div>
+    );
+  }
 
   return (
     <div id="container" className="flex column">
@@ -107,8 +117,12 @@ export default function Home() {
               <tr key={i}>
                 <td>{t.date}</td>
                 <td>{t.description}</td>
-                {(t.type==="CR")}
-                <th style= {(t.type === "CR" ) ? {color: "green"} : {color: "red"}} >
+                {t.type === "CR"}
+                <th
+                  style={
+                    t.type === "CR" ? { color: "green" } : { color: "red" }
+                  }
+                >
                   {t.amount} {t.type}
                 </th>
                 <td>{t.closingBalance}</td>
